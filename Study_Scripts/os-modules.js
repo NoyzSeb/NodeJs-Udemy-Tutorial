@@ -1,3 +1,4 @@
+//imports "os" module
 const os = require("os");
 
 //current user's info

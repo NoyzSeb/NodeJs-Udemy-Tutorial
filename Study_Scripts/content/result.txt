@@ -1,0 +1,2 @@
+This is the result txt file.: 
+Extras : This is the first txt file.
