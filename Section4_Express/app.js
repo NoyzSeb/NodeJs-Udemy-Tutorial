@@ -1,19 +1,31 @@
-const http = require("http")
+const express=require("express")
+const app= express()
 
-const server = http.createServer((req,res)=>{
-    const url = req.url
-    if (url == "/"){
-        res.writeHead(200, {'content-type': 'text/html'})
-        res.write("<h1>Welcome to Berk's web page. (TITLE) </h1>")
-        res.end("Welcome to Berk's web page.")
-    }else if (url == "/about"){
-        res.write("<h1>Welcome to Berk's web page. (TITLE) </h1>")
-        res.end("About page.")
-    }else{
-        res.write("<h1>404 NOT FOUND</h1>")
-        res.end()
-    }
-    
+const { products, people }=require("./data")
+
+app.get('/', (req,res)=>{
+    res.send('<h1> Home Page </h1> <a href="/products" > products </a> ')
 })
 
-server.listen(5000)
+app.get('/products',(req,res)=>{
+    const newProducts= products.map((product)=>{
+        const {id, name,image} = product;
+        return {id, name, image}
+    })
+    res.json(newProducts)
+
+})
+app.get('/products/:Id',(req,res)=>{
+    const {Id} = req.params; 
+    console.log(req.params);
+    const singleProduct= products.find((product)=> product.id == Number(Id))
+    if (!singleProduct){
+        res.status(404).send("This Product Does Not Exist")
+    }
+    res.json(singleProduct)
+
+})
+    
+
+
+app.listen(5000)
