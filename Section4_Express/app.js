@@ -1,27 +1,21 @@
 const express=require("express")
 const app= express()
-const {logger, authorize} = require("./middleware")
+let {people} = require('./data.js')
 
-app.use(logger)
+app.use(express.static('./methods-public'))
+//To reach body parsed string(with 'false' flag).
+app.use(express.urlencoded({extended: false}))
 
-//access with ?user=john
-app.use('/api',authorize)
+app.get('/api/people', (req,res)=>{
+    res.status(200).json({data:people})
+})
+
+app.post('/login',(req,res)=>{
+    const {name} = req.body
+    if(name) {
+        return res.status(200).send(`Welcome ${name}`)
+    }
     
-app.get('/', (req,res)=>{
-    res.write('<h1>Home </h1> <a href="/api/products"> Products Page </a>')
-    res.write('<a href="/about"> About Page </a>')
-    res.send()
-})
-app.get('/about', (req,res)=>{
-    res.write('<h1>About</h1> <a href="/"> Home Page </a>')
-    res.write('<a href="/api/products"> Products Page </a>')
-    res.send()
-})
-
-app.get('/api/products', (req,res)=>{
-    res.write('<h1>Products</h1> <a href="/"> Home Page </a>')
-    res.write('<a href="/about"> About Page </a>')
-    res.send()
 })
 
 app.listen(5000)
