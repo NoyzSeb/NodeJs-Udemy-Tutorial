@@ -2,7 +2,10 @@ const express=require("express")
 const app= express()
 const {logger, authorize} = require("./middleware")
 
-app.use(authorize,logger)
+app.use(logger)
+
+//access with ?user=john
+app.use('/api',authorize)
     
 app.get('/', (req,res)=>{
     res.write('<h1>Home </h1> <a href="/api/products"> Products Page </a>')
