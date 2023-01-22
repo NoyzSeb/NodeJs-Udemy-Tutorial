@@ -1,3 +1,4 @@
+const connectDB=require('./database/connect')
 const express = require('express')
 const app = express()
 const port = 3000;
@@ -14,6 +15,15 @@ app.get('/hello', (req,res)=>{
     res.send('Hello friendly neighborhood')
 })
 
+//this will provide us the start server only if we succesfully conntected to database.
+const start= async()=>{
+    try {
+        connectDB()
+        app.listen(port,()=>console.log(`Server is listening on port ${port}`))
+    } catch (error) {
+        console.log(error)
+    }
+}
 
+start()
 
-app.listen(port)
