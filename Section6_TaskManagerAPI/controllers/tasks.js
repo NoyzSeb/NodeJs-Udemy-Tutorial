@@ -3,19 +3,23 @@ const getAllTasks = (req,res)=>{
 }
 
 const createTask = (req,res)=>{
-    res.send('al items frm the file')
+    res.send(req.body)
 }
 
 const getSingleTask = (req,res)=>{
-    res.send('al items from the file')
+    res.send(req.params)
 }
 
 const updateTask = (req,res)=>{
-    res.send('all item from the file')
+    const id = req.params
+    const updatedTask = req.body
+    res.status(200).json({Tasks_id:id, Updated_Task:updatedTask})
+    
 }
 
 const deleteTask = (req,res)=>{
-    res.send('all iems from the file')
+    const id = req.params
+    res.json({Deleted_Tasks_id:id})
 }
 
 module.exports = {
