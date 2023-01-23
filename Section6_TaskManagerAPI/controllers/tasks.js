@@ -1,13 +1,18 @@
+const Task = require("../models/Task")
+
+
+
 const getAllTasks = (req,res)=>{
-    res.send('all items from the file')
+    res.json('all items from the file')
 }
 
-const createTask = (req,res)=>{
-    res.send(req.body)
+const createTask = async (req,res)=>{
+    const task= await Task.create(req.body)
+    res.status(201).json({task})
 }
 
 const getSingleTask = (req,res)=>{
-    res.send(req.params)
+    res.json(req.params)
 }
 
 const updateTask = (req,res)=>{
