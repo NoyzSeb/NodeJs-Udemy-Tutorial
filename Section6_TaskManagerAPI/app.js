@@ -6,20 +6,18 @@ const tasks = require('./routes/tasks')
 require('dotenv').config()
 
 //middleware
+app.use(express.static('./public'))
 app.use(express.json())
+
 
 //routes
 app.use('/api/v1/tasks', tasks)
 
 
-app.get('/hello', (req,res)=>{
-    res.send('Hello friendly neighborhood')
-})
-
 //this will provide us the start server only if we succesfully conntected to database.
 const start= async()=>{
     try {
-        connectDB(process.env.MONGO_DB_URI)
+        await connectDB(process.env.MONGO_DB_URI)
         app.listen(port,()=>console.log(`Server is listening on port ${port}`))
     } catch (error) {
         console.log(error)
