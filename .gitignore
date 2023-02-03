@@ -126,5 +126,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 ExampleCodes_johnsmilga/node-express-course/
+04-store-api/
 03-task-manager/
 02_johnsmilga_express_tutorial/
